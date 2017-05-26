@@ -1,6 +1,7 @@
 package com.bigboss.heartrate.widget;
 
 import android.content.Context;
+import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -87,6 +88,9 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
         mCamera = Camera.open();
         final Camera.Parameters params = mCamera.getParameters();
         params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+        openCameraFlashMode();
+        mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        CameraHelper.setAutoFocusMode(mCamera);
     }
 
     public void releaseCamera(){
@@ -99,6 +103,7 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
         Camera.Parameters mParameters;
         mParameters = mCamera.getParameters();
         mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+        mParameters.setPreviewFormat(ImageFormat.NV21);
         mCamera.setParameters(mParameters);
     }
 
@@ -108,5 +113,10 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
         mParameters = mCamera.getParameters();
         mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
         mCamera.setParameters(mParameters);
+    }
+
+    public void setPreviewCallback(Camera.PreviewCallback mPreviewCallback){
+        if (mCamera != null)
+            mCamera.setPreviewCallback(mPreviewCallback);
     }
 }
