@@ -7,6 +7,5 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="这是一个欢迎界面"
-        android:onClick="test"
         android:textSize="40sp"/>
 </LinearLayout>

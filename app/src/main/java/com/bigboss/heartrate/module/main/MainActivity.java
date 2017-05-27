@@ -28,9 +28,6 @@ import static com.bigboss.heartrate.util.CameraHelper.transformYUV420SPtoGreySca
 
 public class MainActivity extends BaseActivity {
 
-    // CAMERA权限请求码
-    private static final int REQUEST_CODE_FOR_CAMERA = 0;
-
     private CameraPreviewView mCameraPreviewView;
     private Camera mCamera;
     private ImageView mImageView;
@@ -81,10 +78,12 @@ public class MainActivity extends BaseActivity {
     }
 
     public void share(View view){
-        UMImage image = new UMImage(MainActivity.this, R.drawable.umeng_socialize_edit_bg);//资源文件
+        UMImage image = new UMImage(MainActivity.this, R.drawable.umeng_socialize_qq);//资源文件
 
-        new ShareAction(MainActivity.this).withText("爆炸了")
-                .withMedia(image).setPlatform(SHARE_MEDIA.QQ)
+        new ShareAction(MainActivity.this)
+                .setPlatform(SHARE_MEDIA.QQ)
+                .withText("爆炸了")
+                .withMedia(image)
                 .setCallback(umShareListener)
                 .share();
     }

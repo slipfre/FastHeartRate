@@ -11,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 
 /**
  * 从所有Activity中抽出的基类，实现了Activity的通用操作，
@@ -80,4 +84,38 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 从传入的权限中得到还没有被授予的权限
+     *
+     * @param permissions 需要检查的权限
+     * @return 还没有被授予的权限
+     */
+    protected String[] getUngrantedPermissions(String[] permissions){
+        List<String> ungrantedPermissions = new LinkedList<String>();
+        for (String permission:permissions
+             ) {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), permission) != PackageManager.PERMISSION_GRANTED){
+                ungrantedPermissions.add(permission);
+            }
+        }
+        return (String[])ungrantedPermissions.toArray(new String[ungrantedPermissions.size()]);
+    }
+
+    /**
+     * 检查需要的权限是否都有了，有了返回true，没有则发起请求，并返回false
+     * @param permissions 需要检查的权限
+     * @param requestCode 请求码
+     * @return 检查结果
+     */
+    protected boolean checkandrequestPermissions(String[] permissions, int requestCode){
+        String[] ungrantedPermissions = getUngrantedPermissions(permissions);
+
+        if (ungrantedPermissions.length == 0){
+            return true;
+        }
+
+        ActivityCompat.requestPermissions(this, ungrantedPermissions, requestCode);
+
+        return false;
+    }
 }
