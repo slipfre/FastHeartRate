@@ -62,30 +62,10 @@ public class CameraHelper {
         }
     }
 
-    static public void decodeYUV420SPnooffset(int[] rgb, byte[] yuv420sp, int width, int height) {
-        final int frameSize = width * height;
-
-        for (int j = 0, yp = 0; j < height; j++) {
-            int uvp = frameSize + (j >> 1) * width, u = 0, v = 0;
-            for (int i = 0; i < width; i++, yp++) {
-                int y = (0xff & ((int) yuv420sp[yp]));
-                if (y < 0) y = 0;
-                if ((i & 1) == 0) {
-                    v = (0xff & yuv420sp[uvp++]);
-                    u = (0xff & yuv420sp[uvp++]);
-                }
-
-                int y1024 = 1024 * y;
-                int r = (y1024 + 1167 * v);
-                int g = (y1024 - 595 * v - 403 * u);
-                int b = (y1024 + 2081 * u);
-
-                if (r < 0) r = 0; else if (r > 262143) r = 262143;
-                if (g < 0) g = 0; else if (g > 262143) g = 262143;
-                if (b < 0) b = 0; else if (b > 262143) b = 262143;
-
-                rgb[yp] = 0xff000000 | ((r << 6) & 0xff0000) | ((g >> 2) & 0xff00) | ((b >> 10) & 0xff);
-            }
+    static public void decodeYUV420StoGreyRGB(int[] rgb, byte[] yuv420sp, int width, int height) {
+        for (int i = 0; i < height*width; i++) {
+            int grey = yuv420sp[i] & 0xff;
+            rgb[i] = 0xFF000000 | (grey * 0x00010101);
         }
     }
 

@@ -7,10 +7,6 @@ import android.widget.Toast;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-/**
- * Created by BOY on 2017/5/27.
- */
-
 public class MyUMShareListener implements UMShareListener {
 
     private Context mContext;

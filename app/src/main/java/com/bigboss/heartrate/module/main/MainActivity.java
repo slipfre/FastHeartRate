@@ -15,8 +15,7 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 
-import static com.bigboss.heartrate.util.CameraHelper.decodeYUV420SPnooffset;
-import static com.bigboss.heartrate.util.CameraHelper.transformYUV420SPtoGreyScale;
+import static com.bigboss.heartrate.util.CameraHelper.decodeYUV420StoGreyRGB;
 
 public class MainActivity extends BaseActivity {
 
@@ -75,8 +74,7 @@ public class MainActivity extends BaseActivity {
             if (mRgb == null)
                 mRgb = new int[width*height];
 
-            transformYUV420SPtoGreyScale(data, width, height);
-            decodeYUV420SPnooffset(mRgb, data, width, height);
+            decodeYUV420StoGreyRGB(mRgb, data, width, height);
             Bitmap bm = Bitmap.createBitmap(mRgb, width, height, Bitmap.Config.ARGB_8888);
             bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
             mImageView.setImageBitmap(bm);
