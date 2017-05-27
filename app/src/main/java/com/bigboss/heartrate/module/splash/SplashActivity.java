@@ -14,6 +14,7 @@ public class SplashActivity extends BaseActivity {
 
     private static final int REQUEST_CODE_FOR_PERMISSION = 0;
     private static final int PERMISSION_DENY = 1;
+    private static final int GO_MAIN = 2;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -22,6 +23,10 @@ public class SplashActivity extends BaseActivity {
             switch (msg.what) {
                 case PERMISSION_DENY:
                     finish();
+                    break;
+                case GO_MAIN:
+                    goMain();
+                    break;
             }
         }
     };
@@ -41,9 +46,9 @@ public class SplashActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= 23) {
             String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
             if (checkandrequestPermissions(permissions, REQUEST_CODE_FOR_PERMISSION))
-                goMain();
+                mHandler.sendEmptyMessageDelayed(GO_MAIN, 1000);
         } else {
-            goMain();
+            mHandler.sendEmptyMessageDelayed(GO_MAIN, 1000);
         }
     }
 
@@ -57,7 +62,7 @@ public class SplashActivity extends BaseActivity {
         switch (requestCode) {
             case REQUEST_CODE_FOR_PERMISSION:
                 if (getUngrantedPermissions(permissions).length == 0)
-                    goMain();
+                    mHandler.sendEmptyMessageDelayed(GO_MAIN, 1000);
                 else
                     mHandler.sendEmptyMessageDelayed(PERMISSION_DENY, 1000);
                 break;

@@ -1,25 +1,17 @@
 package com.bigboss.heartrate.module.main;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.hardware.Camera;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bigboss.heartrate.app.BaseActivity;
 import com.bigboss.heartrate.fastheartrate.R;
 import com.bigboss.heartrate.widget.CameraPreviewView;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 
@@ -31,34 +23,6 @@ public class MainActivity extends BaseActivity {
     private CameraPreviewView mCameraPreviewView;
     private Camera mCamera;
     private ImageView mImageView;
-
-    private UMShareListener umShareListener = new UMShareListener() {
-        @Override
-        public void onStart(SHARE_MEDIA platform) {
-            //分享开始的回调
-            System.out.println("sfdgsgdgfdghkjgkj");
-        }
-        @Override
-        public void onResult(SHARE_MEDIA platform) {
-            Log.d("plat","platform"+platform);
-
-            Toast.makeText(MainActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
-
-        }
-
-        @Override
-        public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(MainActivity.this,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
-            if(t!=null){
-                Log.d("throw","throw:"+t.getMessage());
-            }
-        }
-
-        @Override
-        public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(MainActivity.this,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
-        }
-    };
 
     @Override
     public int getStatusBarType() {
@@ -84,7 +48,7 @@ public class MainActivity extends BaseActivity {
                 .setPlatform(SHARE_MEDIA.QQ)
                 .withText("爆炸了")
                 .withMedia(image)
-                .setCallback(umShareListener)
+                .setCallback(new MyUMShareListener(getApplicationContext()))
                 .share();
     }
 
