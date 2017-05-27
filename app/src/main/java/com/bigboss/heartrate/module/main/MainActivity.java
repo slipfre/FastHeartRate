@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -75,8 +76,13 @@ public class MainActivity extends BaseActivity {
                 mRgb = new int[width*height];
 
             decodeYUV420StoGreyRGB(mRgb, data, width, height);
+
+//            for (int i = 0; i < mRgb.length; i = i + 10) {
+//                Log.e("", "第"+ (i&0x0ff) +"个："+Integer.toHexString(i), null);
+//            }
+
             Bitmap bm = Bitmap.createBitmap(mRgb, width, height, Bitmap.Config.ARGB_8888);
-            bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+//            bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
             mImageView.setImageBitmap(bm);
         }
     }
