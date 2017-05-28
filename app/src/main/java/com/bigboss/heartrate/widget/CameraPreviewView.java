@@ -87,8 +87,10 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
     public void openCamera(){
         mCamera = Camera.open();
         final Camera.Parameters params = mCamera.getParameters();
-        params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-        openCameraFlashMode();
+//        int[] range = new int[2];
+//        params.getPreviewFpsRange(range);
+//        params.setPreviewFpsRange(range[1], range[1]);
+//        mCamera.setParameters(params);
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         CameraHelper.setAutoFocusMode(mCamera);
     }
@@ -100,17 +102,14 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
 
     public void openCameraFlashMode(){
         checkCamera();
-        Camera.Parameters mParameters;
-        mParameters = mCamera.getParameters();
+        Camera.Parameters mParameters = mCamera.getParameters();
         mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-        mParameters.setPreviewFormat(ImageFormat.NV21);
         mCamera.setParameters(mParameters);
     }
 
     public void closeCameraFlashMode(){
         checkCamera();
-        Camera.Parameters mParameters;
-        mParameters = mCamera.getParameters();
+        Camera.Parameters mParameters = mCamera.getParameters();
         mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
         mCamera.setParameters(mParameters);
     }

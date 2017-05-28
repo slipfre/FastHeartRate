@@ -82,6 +82,17 @@ public class CameraHelper {
         }
     }
 
+    static public int decodeYUV420StoGreyRGBandGetAvgGrey(int[] rgb, byte[] yuv420sp, int width, int height) {
+        int sumofGrey = 0;
+        int frameSize = width*height;
+        for (int i = 0; i < frameSize; i++) {
+            int grey = yuv420sp[i] & 0xff;
+            sumofGrey += grey;
+            rgb[i] = 0xFF000000 | (grey * 0x00010101);
+        }
+        return sumofGrey/frameSize;
+    }
+
     public static void setAutoFocusMode(Camera camera) {
         try {
             Camera.Parameters parameters = camera.getParameters();

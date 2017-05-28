@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CardiogView">
+        <attr name="distanceX" format="dimension|reference"/>
+        <attr name="linecolor" format="color|reference"/>
+        <attr name="startY" format="float"/>
+        <attr name="endY" format="float"/>
+    </declare-styleable>
+</resources>
