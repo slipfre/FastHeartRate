@@ -17,6 +17,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 
 import static com.bigboss.heartrate.util.CameraHelper.decodeYUV420StoGreyRGB;
+import static com.bigboss.heartrate.util.CameraHelper.decodeYUV420StoGreyRGBandRotate;
 
 public class MainActivity extends BaseActivity {
 
@@ -72,17 +73,14 @@ public class MainActivity extends BaseActivity {
             int width = camera.getParameters().getPreviewSize().width;
             int height = camera.getParameters().getPreviewSize().height;
 
-            if (mRgb == null)
+            if (mRgb == null){
                 mRgb = new int[width*height];
+                mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
 
             decodeYUV420StoGreyRGB(mRgb, data, width, height);
 
-//            for (int i = 0; i < mRgb.length; i = i + 10) {
-//                Log.e("", "第"+ (i&0x0ff) +"个："+Integer.toHexString(i), null);
-//            }
-
             Bitmap bm = Bitmap.createBitmap(mRgb, width, height, Bitmap.Config.ARGB_8888);
-//            bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
             mImageView.setImageBitmap(bm);
         }
     }

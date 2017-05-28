@@ -62,8 +62,21 @@ public class CameraHelper {
         }
     }
 
+    static public void decodeYUV420StoGreyRGBandRotate(int[] rgb, byte[] yuv420sp, int width, int height) {
+        int rowPos = 0;
+        for (int i = 0; i < height; i++) {
+            int columnPos = 0;
+            for (int j = 0; j < width; j++) {
+                int grey = yuv420sp[rowPos + j] & 0xff;
+                rgb[columnPos + height - i - 1] = 0xFF000000 | (grey * 0x00010101);
+                columnPos += height;
+            }
+            rowPos += width;
+        }
+    }
+
     static public void decodeYUV420StoGreyRGB(int[] rgb, byte[] yuv420sp, int width, int height) {
-        for (int i = 0; i < height*width; i++) {
+        for (int i = 0; i < width*height; i++) {
             int grey = yuv420sp[i] & 0xff;
             rgb[i] = 0xFF000000 | (grey * 0x00010101);
         }
