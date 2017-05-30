@@ -111,4 +111,12 @@ public class CardiogView extends View {
         points.add(y);
         invalidate();
     }
+
+    public void update(float[] y){
+        points.clear();
+        for (float temp:y
+             ) {
+            points.add(temp);
+        }
+    }
 }

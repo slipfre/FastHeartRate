@@ -48,8 +48,24 @@ package com.bigboss.heartrate.util;
  *  @author Kevin Wayne
  */
 public class Complex {
-    private final double re;   // the real part
-    private final double im;   // the imaginary part
+    public double getRe() {
+        return re;
+    }
+
+    public double getIm() {
+        return im;
+    }
+
+    public void setRe(double re) {
+        this.re = re;
+    }
+
+    public void setIm(double im) {
+        this.im = im;
+    }
+
+    private double re;   // the real part
+    private double im;   // the imaginary part
 
     /**
      * Initializes a complex number from the specified real and imaginary parts.
@@ -69,8 +85,8 @@ public class Complex {
      *         of the form 34 - 56i.
      */
     public String toString() {
-        if (im == 0) return re + "";
-        if (re == 0) return im + "i";
+//        if (im == 0) return re + "";
+//        if (re == 0) return im + "i";
         if (im <  0) return re + " - " + (-im) + "i";
         return re + " + " + im + "i";
     }

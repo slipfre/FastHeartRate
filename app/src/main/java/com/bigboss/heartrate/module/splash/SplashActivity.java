@@ -8,6 +8,7 @@ import android.os.Message;
 import com.bigboss.heartrate.app.BaseActivity;
 import com.bigboss.heartrate.fastheartrate.R;
 import com.bigboss.heartrate.module.main.MainActivity;
+import com.bigboss.heartrate.widget.SplashExplodeView;
 
 
 public class SplashActivity extends BaseActivity {
@@ -33,7 +34,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-
     }
 
     @Override
@@ -45,10 +45,11 @@ public class SplashActivity extends BaseActivity {
     protected void doAfterInitView() {
         if (Build.VERSION.SDK_INT >= 23) {
             String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            if (checkandrequestPermissions(permissions, REQUEST_CODE_FOR_PERMISSION))
-                mHandler.sendEmptyMessageDelayed(GO_MAIN, 1000);
+            if (checkandrequestPermissions(permissions, REQUEST_CODE_FOR_PERMISSION)){
+                mHandler.sendEmptyMessageDelayed(GO_MAIN, 2000);
+            }
         } else {
-            mHandler.sendEmptyMessageDelayed(GO_MAIN, 1000);
+            mHandler.sendEmptyMessageDelayed(GO_MAIN, 2000);
         }
     }
 
@@ -62,9 +63,9 @@ public class SplashActivity extends BaseActivity {
         switch (requestCode) {
             case REQUEST_CODE_FOR_PERMISSION:
                 if (getUngrantedPermissions(permissions).length == 0)
-                    mHandler.sendEmptyMessageDelayed(GO_MAIN, 1000);
+                    mHandler.sendEmptyMessageDelayed(GO_MAIN, 2000);
                 else
-                    mHandler.sendEmptyMessageDelayed(PERMISSION_DENY, 1000);
+                    mHandler.sendEmptyMessageDelayed(PERMISSION_DENY, 2000);
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
