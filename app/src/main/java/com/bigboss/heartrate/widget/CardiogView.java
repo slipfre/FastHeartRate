@@ -33,6 +33,7 @@ public class CardiogView extends View {
         super(context);
     }
 
+    //AttributeSet属性集合
     public CardiogView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.CardiogView);
@@ -73,7 +74,7 @@ public class CardiogView extends View {
     }
 
     private float calculateDistanceY(float height){
-        return height/Math.abs(mEndY - mStartY);
+        return height/Math.abs(mEndY - mStartY);                                   //mEndY   mStartY   坐标范围    函数返回Y值间距的长度
     }
 
     private List<Float> initPoints(float width){
