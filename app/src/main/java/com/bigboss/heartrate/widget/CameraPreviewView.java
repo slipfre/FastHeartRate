@@ -16,6 +16,7 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
 
     private SurfaceHolder mSurfaceHolder;
     private Camera mCamera;
+    private Camera.PreviewCallback mPreviewCallback;
 
     public CameraPreviewView(Context context) {
         super(context);
@@ -63,6 +64,8 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
         checkCamera();
         try {
             mCamera.setPreviewDisplay(holder);
+            if (mPreviewCallback != null)
+                mCamera.setPreviewCallback(mPreviewCallback);
             mCamera.startPreview();
         } catch (IOException e) {
             Log.e("grandfather", "Error while START preview for camera", e);
@@ -115,7 +118,6 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
     }
 
     public void setPreviewCallback(Camera.PreviewCallback mPreviewCallback){
-        if (mCamera != null)
-            mCamera.setPreviewCallback(mPreviewCallback);
+        this.mPreviewCallback = mPreviewCallback;
     }
 }
