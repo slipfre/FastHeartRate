@@ -93,6 +93,16 @@ public class CameraHelper {
         return (float)sumofGrey/(float)frameSize;
     }
 
+    static public float calculateAvgGrey(byte[] yuv420sp, int width, int height){
+        float sumofGrey = 0;
+        int frameSize = width*height;
+        for (int i = 0; i < frameSize; i++) {
+            int grey = yuv420sp[i] & 0xff;
+            sumofGrey += grey;
+        }
+        return (float)sumofGrey/(float)frameSize;
+    }
+
     public static void setAutoFocusMode(Camera camera) {
         try {
             Camera.Parameters parameters = camera.getParameters();

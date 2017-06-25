@@ -21,13 +21,14 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 
+import static com.bigboss.heartrate.util.CameraHelper.calculateAvgGrey;
 import static com.bigboss.heartrate.util.CameraHelper.decodeYUV420StoGreyRGBandGetAvgGrey;
 
 public class MainActivity extends BaseActivity {
 
     private CameraPreviewView mCameraPreviewView;
     private Camera mCamera;
-    private ImageView mImageView;
+//    private ImageView mImageView;
     private CardiogView mCardiogView;
     private boolean started = false;
     private TextView mTv_heartrate;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity {
     public void initViews() {
         mCameraPreviewView = (CameraPreviewView) findViewById(R.id.camerapreviewview);
         mCameraPreviewView.setPreviewCallback(new MyPreviewCallback());
-        mImageView = (ImageView) findViewById(R.id.iv_imageview);
+//        mImageView = (ImageView) findViewById(R.id.iv_imageview);
         mCardiogView = (CardiogView) findViewById(R.id.cardiogview);
 
         mCameraPreviewView.openCameraFlashMode();
@@ -98,12 +99,12 @@ public class MainActivity extends BaseActivity {
 
             if (mRgb == null) {
                 mRgb = new int[width * height];
-                mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//                mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
             }
 
-            float avggrey = decodeYUV420StoGreyRGBandGetAvgGrey(mRgb, data, width, height);
-            Bitmap bm = Bitmap.createBitmap(mRgb, width, height, Bitmap.Config.ARGB_8888);
-            mImageView.setImageBitmap(bm);
+            float avggrey = calculateAvgGrey(data, width, height);
+//            Bitmap bm = Bitmap.createBitmap(mRgb, width, height, Bitmap.Config.ARGB_8888);
+//            mImageView.setImageBitmap(bm);
 
             if (started == true) {
                 mCardiogView.putPoint(avggrey);
