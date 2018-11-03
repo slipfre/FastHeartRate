@@ -99,12 +99,11 @@ public class MainActivity extends BaseActivity {
 
             if (mRgb == null) {
                 mRgb = new int[width * height];
-//                mImageView.setScaleType(ImageView.ScaleType.FIT_XY);
             }
 
             float avggrey = calculateAvgGrey(data, width, height);
 //            Bitmap bm = Bitmap.createBitmap(mRgb, width, height, Bitmap.Config.ARGB_8888);
-//            mImageView.setImageBitmap(bm);
+//            mImageView.setImageBitmap(bm);xiamian
 
             if (started == true) {
                 mCardiogView.putPoint(avggrey);
@@ -131,12 +130,6 @@ public class MainActivity extends BaseActivity {
                             maxNum = i;
                         }
                     }
-//                    FFT.show(rateArray, "result:");
-//                    StringBuffer buffer = new StringBuffer("");
-//                    for (Complex c:avggreyArray
-//                         ) {
-//                        buffer.append(c.getRe() + " ");
-//                    }
                     int heartrate = (int)(60*(double)(samplingRate*maxNum/frameCount));
                     if (heartrate >= 40 && heartrate <= 200)
                         mTv_heartrate.setText("心率:" + heartrate + "次/分  (•̀ᴗ•́)و ̑̑ ");

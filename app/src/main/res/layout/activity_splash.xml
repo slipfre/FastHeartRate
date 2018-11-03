@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="BIGBROTHER AND GRANDFATHER"
-            android:textSize="20sp"/>
+            android:text="Happy ^-^"
+            android:textSize="25sp"/>
     </LinearLayout>
 
 </RelativeLayout>
