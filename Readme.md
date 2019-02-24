@@ -5,7 +5,7 @@
 
 最终实现效果如下：
 
-<div align=center><img src="https://github.com/WoHohohoho/FastHeartRate/blob/master/media/example.gif"/></div>
+<div align=center><img src="https://github.com/WoHohohoho/HeartRateMonitor/blob/master/media/example.gif"/></div>
 
 ### 二、主要内容
 1.	操作手机的摄像头和闪光灯获得指尖图像
@@ -19,14 +19,14 @@
 
 但Android中，提供了一种更好的方式，可以通过SurfaceView加Camera的方式来显示图像。在前一种方式中，ImageView在摄像头每捕获一帧时，就要刷新一次，这非常的耗时，因为刷新操作和其他的操作都是在一个线程进行的，这很容易引起应用的卡顿。而使用SurfaceVIew的时，SurfaceView的绘制是在单独的一个线程中进行的，这可以有效的提高应用的用户体验。
 
-<div align=center><img src="https://github.com/WoHohohoho/FastHeartRate/blob/master/media/camera.jpg"/></div>
+<div align=center><img src="https://github.com/WoHohohoho/HeartRateMonitor/blob/master/media/camera.jpg"/></div>
 
 #### 3.2 分析得到的图像，获得每一帧图像的平均灰度值
 Android平台中摄像头使用的图片格式为YUV格式，其中Y为像素点的亮度信息，U和V为像素点的色度信息。YUV格式有两大类，plane和packed。在plane类型的YUV格式图像中，一个像素点的Y值和UV值是分开存储的，先连续存储所有像素点的Y值，再存储所有像素点的UV值。而在packed类型的YUV格式图像中，像素点的Y值和UV值是连续存储的，依次存储每个像素点的Y值U值V值。
 
 Android平台中摄像头传回图像的格式为YUV420sp格式，属于plane类型，且每四个Y值公用一组UV分量。其格式如下图所示。
 
-<div align=center><img src="https://github.com/WoHohohoho/FastHeartRate/blob/master/media/yuv.jpg"/></div>
+<div align=center><img src="https://github.com/WoHohohoho/HeartRateMonitor/blob/master/media/yuv.jpg"/></div>
 
 其中相同颜色的块为一个共用组，如Y1，Y2，Y9，Y10共用了U1V1，所以第1，2，9，10个像素点的YUV值依次为Y1U1V1，Y2U1V1，Y9U1V1，Y10U1V1。
 
@@ -97,21 +97,11 @@ public void putPoint(float y){
 
 效果如下：
 
-<div align=center><img src="https://github.com/WoHohohoho/FastHeartRate/blob/master/media/line_custom_view.jpg"/></div>
+<div align=center><img src="https://github.com/WoHohohoho/HeartRateMonitor/blob/master/media/line_custom_view.jpg"/></div>
 
 ### 3.4 通过傅立叶变换得到新率
 在前几小节中，已经可以得到图像的灰度值并将其绘制出来了，最后需要根据得到的这些灰度值计算出心率。
 
-<div align=center><img src="https://github.com/WoHohohoho/FastHeartRate/blob/master/media/line_fft.jpg"/></div>
+<div align=center><img src="https://github.com/WoHohohoho/HeartRateMonitor/blob/master/media/line_fft.jpg"/></div>
 
 上图中的波形周期性非常的明显，大概11到12个点为一个波形，以此也可以计算出心率。但是以编程方式实现上述计算方式比较麻烦。通过傅里叶变化，可以将上述波形分解为不同频率波形的叠加，很明显我们需要的心率即是其中幅值最大的那个波的频率，所以，我们只需要对得到的灰度值进行一个傅里叶变换，得到的结果中，幅值最大的那个波的频率即是心率。
-
-
-
-
-
-
-
-
-
-
